@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kedadas</title>
+  <link rel="icon" href="icono.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <select id="selector-tema" class="theme-switcher" title="Cambiar aspecto">
+    <option value="auto">🌗 Auto</option>
+    <option value="light">☀️ Día</option>
+    <option value="dark">🌙 Noche</option>
+  </select>
+
+  <div id="pantalla-login" class="login-container">
+    <h2>Kedadas</h2>
+    <p>Cuadrante de Turnos</p>
+    
+    <select id="login-usuario">
+      <option value="Cule">Cule</option>
+      <option value="Persona 2">Persona 2</option>
+      <option value="Persona 3">Persona 3</option>
+      <option value="Persona 4">Persona 4</option>
+    </select>
+    
+    <input type="password" id="login-pin" placeholder="PIN de 4 dígitos" inputmode="numeric" maxlength="4">
+    
+    <button id="btn-login-pin" class="btn-login">Entrar con PIN</button>
+    <button id="btn-login-faceid" class="btn-faceid">😎 Entrar con Face ID</button>
+  </div>
+
+  <div id="pantalla-app" class="calendar-container" style="display: none;">
+    
+    <!-- CABECERA COMÚN -->
+    <div class="calendar-header">
+      <button id="btn-prev">◀</button>
+      <h2 id="mes-actual">Cargando...</h2>
+      <button id="btn-next">▶</button>
+    </div>
+
+    <div class="vista-toggle-container">
+      <button id="btn-toggle-vista" class="btn-toggle-vista">📅 Cambiar a Vista Anual</button>
+    </div>
+    
+    <div class="user-selector-container">
+      <label for="usuario-activo">Viendo a:</label>
+      <select id="usuario-activo"></select>
+      <button id="btn-editar-usuarios" title="Editar lista de personas (Solo Admin)">⚙️</button>
+    </div>
+    
+    <div class="leyenda">
+      <div class="leyenda-item"><span class="leyenda-color estado-libre">L</span> Libre</div>
+      <div class="leyenda-item"><span class="leyenda-color estado-manana">M</span> Mañana</div>
+      <div class="leyenda-item"><span class="leyenda-color estado-tarde">T</span> Tarde</div>
+      <div class="leyenda-item"><span class="leyenda-color estado-noche">N</span> Noche</div>
+      <div class="leyenda-item"><span class="leyenda-color estado-vacaciones">V</span> Vacaciones</div>
+    </div>
+
+    <!-- ENVOLTORIO PARA EL MODO ORDENADOR -->
+    <div class="desktop-layout">
+      
+      <!-- COLUMNA IZQUIERDA: CALENDARIOS -->
+      <div class="panel-principal">
+        <!-- CONTENEDOR DEL MES -->
+        <div id="vista-mes-container">
+          <button id="btn-secuencia" class="btn-secuencia">✨ Rellenar mes por secuencia</button>
+          <div class="weekdays">
+            <div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div>
+          </div>
+          <div class="days-grid" id="calendar-grid"></div>
+          <button id="btn-coincidencias" class="btn-coincidencias">🔍 Buscar días libres en común</button>
+          <div id="resultado-coincidencias" class="resultados-box"></div>
+        </div>
+
+        <!-- CONTENEDOR DEL AÑO -->
+        <div id="vista-anual-container" style="display: none;"></div>
+      </div>
+
+      <!-- COLUMNA DERECHA: VOTACIONES Y CHAT -->
+      <div class="panel-lateral">
+        <div class="votaciones-container">
+          <h3 class="votaciones-titulo">🎯 ¿Qué hacemos? (Votación)</h3>
+          <div id="lista-votaciones" class="lista-votaciones">
+            <p>Cargando opciones...</p>
+          </div>
+        </div>
+
+        <hr class="divisor">
+        
+        <div class="chat-container">
+          <h3 class="chat-titulo">💬 Tablón de Avisos</h3>
+          <div class="chat-mensajes" id="chat-mensajes"></div>
+          <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Escribe un mensaje...">
+            <button id="btn-enviar-msg">Enviar</button>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- Fin desktop-layout -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>

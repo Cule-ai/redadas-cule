@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap');
+
+body {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
+  margin: 0;
+  user-select: none;
+  min-height: 100vh;
+}
+
+/* CAJA PRINCIPAL (Por defecto modo móvil) */
+.calendar-container {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 420px;
+  border-radius: 24px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.calendar-header button {
+  background: #f0f4f8;
+  border: none;
+  font-size: 1.2rem;
+  color: #34495e;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.calendar-header button:active { transform: scale(0.9); background: #e2e8f0; }
+
+.vista-toggle-container { text-align: center; margin-bottom: 20px; }
+.btn-toggle-vista {
+  background: white;
+  border: 2px solid #cbd5e1;
+  color: #334155;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-toggle-vista:active { transform: scale(0.95); }
+
+.user-selector-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 16px;
+}
+
+#usuario-activo {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  outline: none;
+}
+
+#btn-editar-usuarios {
+  background: white;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.leyenda {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.leyenda-item { display: flex; align-items: center; gap: 4px; }
+
+.leyenda-color {
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px; font-weight: bold; font-size: 0.75rem;
+}
+
+.btn-secuencia, .btn-coincidencias {
+  display: block; width: 100%; padding: 14px;
+  border: none; border-radius: 14px; font-size: 1rem;
+  font-weight: bold; cursor: pointer; margin-bottom: 20px; color: white;
+}
+
+.btn-secuencia { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.btn-coincidencias { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+
+.weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center; font-weight: 800; color: #94a3b8; font-size: 0.85rem; margin-bottom: 12px;
+}
+
+.days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 25px; }
+
+.day {
+  aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 12px; cursor: pointer; border: 2px solid transparent; transition: all 0.1s;
+}
+.day:active { transform: scale(0.85); }
+
+.day-number { font-size: 1rem; font-weight: 800; }
+.shift-label { font-size: 0.8rem; font-weight: 900; margin-top: 2px; }
+.empty-cell { background: transparent; pointer-events: none; }
+
+.estado-vacio  { background-color: #f1f5f9; color: #64748b; }
+.estado-libre  { background-color: #dcfce7; color: #166534; border-color: #bbf7d0; }
+.estado-manana { background-color: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+.estado-tarde  { background-color: #fef08a; color: #854d0e; border-color: #fde047; }
+.estado-noche  { background-color: #f3e8ff; color: #6b21a8; border-color: #e9d5ff; }
+.estado-vacaciones { background-color: #ffedd5; color: #c2410c; border-color: #fdba74; }
+
+/* --- DISEÑO VISTA ANUAL --- */
+.vista-anual-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px; }
+.mini-mes { background: #f8fafc; padding: 10px; border-radius: 12px; border: 1px solid #e2e8f0; }
+.mini-mes h4 { text-align: center; margin: 0 0 8px 0; font-size: 0.9rem; color: #334155; }
+.mini-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-size: 0.6rem; font-weight: bold; color: #94a3b8; margin-bottom: 4px; }
+.mini-days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.mini-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: bold; border-radius: 4px; cursor: pointer; border: 1px solid transparent; }
+.mini-day:active { transform: scale(0.8); }
+
+.resultados-box { margin-top: -10px; margin-bottom: 20px; padding: 15px; background: #f0fdf4; color: #166534; border-radius: 12px; border: 2px solid #bbf7d0; text-align: center; display: none; font-size: 0.95rem; }
+.resultados-box.visible { display: block; }
+
+/* --- VOTACIONES --- */
+.votaciones-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; margin-bottom: 20px; }
+.votaciones-titulo { margin: 0 0 15px 0; font-size: 1.1rem; color: #334155; text-align: center; }
+.lista-votaciones { display: flex; flex-direction: column; gap: 10px; }
+.opcion-voto { display: flex; justify-content: space-between; align-items: center; background: white; padding: 10px 15px; border-radius: 12px; border: 1px solid #cbd5e1; cursor: pointer; transition: all 0.2s; }
+.opcion-voto:active { transform: scale(0.98); }
+.opcion-voto.votado { border-color: #667eea; background: #eff6ff; }
+.opcion-texto { font-weight: bold; color: #334155; }
+.opcion-bar { font-size: 0.85rem; color: #64748b; display: flex; gap: 8px; align-items: center; }
+.voto-badge { background: #667eea; color: white; padding: 2px 8px; border-radius: 10px; font-weight: bold; }
+
+/* --- CHAT --- */
+.divisor { border: none; height: 2px; background: #e2e8f0; margin: 25px 0; }
+.chat-mensajes { height: 200px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.mensaje { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 0.9rem; line-height: 1.4; }
+.mensaje.ajeno { background: #e2e8f0; color: #334155; align-self: flex-start; border-bottom-left-radius: 4px; }
+.mensaje.propio { background: #667eea; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-input-area { display: flex; gap: 8px; }
+#chat-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 12px; outline: none; font-size: 0.95rem; }
+#btn-enviar-msg { background: #667eea; color: white; border: none; border-radius: 12px; padding: 0 16px; font-weight: bold; cursor: pointer; }
+
+/* --- LOGIN --- */
+.login-container { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); width: 100%; max-width: 350px; border-radius: 24px; padding: 40px 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.12); text-align: center; margin-top: 10vh; }
+.login-container p { color: #64748b; margin-bottom: 30px; font-weight: 600; }
+#login-usuario, #login-pin { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; font-size: 1.1rem; margin-bottom: 15px; background: #f8fafc; font-family: 'Nunito', sans-serif; font-weight: 700; }
+#login-pin { text-align: center; letter-spacing: 8px; margin-bottom: 25px; }
+.btn-login, .btn-faceid { width: 100%; padding: 14px; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; margin-bottom: 10px; transition: transform 0.1s; }
+.btn-login { background: #2c3e50; color: white; border: none; }
+.btn-faceid { background: transparent; color: #667eea; border: 2px solid #667eea; }
+
+/* --- TEMA Y MODO NOCHE --- */
+.theme-switcher { position: absolute; top: 15px; right: 15px; padding: 6px 10px; border-radius: 12px; border: 1px solid #cbd5e1; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); font-size: 0.9rem; font-weight: bold; color: #334155; cursor: pointer; z-index: 100; }
+.login-container h2, .calendar-header h2 { background: linear-gradient(45deg, #ff4757, #ffa502, #1e90ff, #ff5285); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.2rem; font-weight: 900; text-shadow: 2px 2px 10px rgba(255, 71, 87, 0.15); margin: 0; }
+.chat-titulo { color: #ff4757; font-weight: 800; margin: 0 0 15px 0; }
+
+body.dark-theme { background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); }
+body.dark-theme .login-container, body.dark-theme .calendar-container { background: rgba(30, 41, 59, 0.95); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+body.dark-theme .leyenda, body.dark-theme .weekdays { color: #f1f5f9; }
+body.dark-theme .login-container p { color: #94a3b8; }
+body.dark-theme .theme-switcher, body.dark-theme #login-usuario, body.dark-theme #login-pin, body.dark-theme #usuario-activo, body.dark-theme #chat-input, body.dark-theme .chat-mensajes, body.dark-theme .calendar-header button, body.dark-theme #btn-editar-usuarios, body.dark-theme .btn-toggle-vista { background: #334155; color: #f1f5f9; border-color: #475569; }
+body.dark-theme .mini-mes { background: rgba(255,255,255,0.05); border-color: #475569; }
+body.dark-theme .mini-mes h4 { color: #f1f5f9; }
+body.dark-theme .mensaje.ajeno { background: #475569; color: #f1f5f9; }
+
+body.dark-theme .votaciones-container { background: #334155; border-color: #475569; }
+body.dark-theme .votaciones-titulo { color: #f1f5f9; }
+body.dark-theme .opcion-voto { background: #475569; border-color: #64748b; }
+body.dark-theme .opcion-texto { color: #f1f5f9; }
+body.dark-theme .opcion-bar { color: #cbd5e1; }
+body.dark-theme .opcion-voto.votado { border-color: #7bed9f; background: rgba(123, 237, 159, 0.1); }
+body.dark-theme .voto-badge { background: #7bed9f; color: #0f2027; }
+
+body.dark-theme .estado-vacio { background-color: #334155; color: #94a3b8; }
+body.dark-theme .estado-libre { background-color: #064e3b; color: #dcfce7; border-color: #059669; }
+body.dark-theme .estado-manana { background-color: #1e3a8a; color: #dbeafe; border-color: #2563eb; }
+body.dark-theme .estado-tarde { background-color: #713f12; color: #fef08a; border-color: #ca8a04; }
+body.dark-theme .estado-noche { background-color: #4c1d95; color: #f3e8ff; border-color: #7c3aed; }
+body.dark-theme .estado-vacaciones { background-color: #9a3412; color: #ffedd5; border-color: #ea580c; }
+body.dark-theme .resultados-box { background: #064e3b; color: #dcfce7; border-color: #059669; }
+body.dark-theme .login-container h2, body.dark-theme .calendar-header h2 { background: linear-gradient(45deg, #ff7f50, #ff6b81, #7bed9f, #70a1ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0px 0px 15px rgba(255, 107, 129, 0.4); }
+body.dark-theme .chat-titulo { color: #7bed9f; }
+
+/* ========================================= */
+/* --- DISEÑO ORDENADOR (PANTALLA GRANDE) -- */
+/* ========================================= */
+@media (min-width: 900px) {
+  .calendar-container {
+    max-width: 1100px;
+    padding: 35px 45px;
+  }
+  .desktop-layout {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .panel-lateral {
+    position: sticky;
+    top: 20px;
+  }
+  .divisor {
+    display: none;
+  }
+  .chat-mensajes {
+    height: 400px; 
+  }
+}
